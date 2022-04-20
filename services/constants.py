@@ -1,0 +1,42 @@
+# Define some constants
+DIRICHLET = "Dirichlet"
+NEUMANN = "Neumann"
+ROBIN = "Robin"
+INTERVAL = "Interval"
+RECTANGLE = "Rectangle"
+HEAT_EQUATION_1D = "1d"
+HEAT_EQUATION_2D = "2d"
+DEGREE = "degree"
+BASIS_FUNCTIONS = "phi"
+NUM_TIME_STEPS = "num_time_steps"
+ODE_SOLVER = "theta"
+DX = "dx"
+DS = "ds"
+TIME_DEPENDENT = "time_dependent"
+TIME_INDEPENDENT = "time_independent"
+CONSTANT = "constant"
+NUM_DOMAIN = "num_domain"
+NUM_INITIAL = "num_initial"
+NUM_BOUNDARY = "num_boundary"
+NUM_NEURONS = "num_neurons"
+NUM_HIDDEN_LAYER = "num_hidden_layer"
+ACTIVATION = "activation"
+INITIALIZER = "initializer"
+OPTIMIZER = "optimizer"
+LEARNING_RATE = "learning_rate"
+LOSS_WEIGHTS = "loss_weights"
+EPOCHS = "epochs"
+ALL = "all"
+TOP_BOTTOM = "TopBottom"
+LEFT_RIGHT = "LeftRight"
+NX = "nx"
+NY = "ny"
+EXACT = "exact"
+FEM = "fem"
+PINN = "pinn"
+
+# Dict mapping the different test problems to the different domain types
+TEST_PROBLEM_TO_DOMAIN_DICT = {
+    HEAT_EQUATION_1D: INTERVAL,
+    HEAT_EQUATION_2D: RECTANGLE,
+}
