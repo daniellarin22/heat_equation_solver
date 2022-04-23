@@ -4,7 +4,7 @@
 
 This repository solves the heat equation with given initial and boundary conditions with the finite element method (FEM) and physics-informed neural networks (PINN).
 Two demos / test problems are implemented. 
-For further documentation, see [this]().
+For further documentation, see [this](https://github.com/daniellarin22/heat_equation_solver/blob/100f492d7f8986d17d0611b35354b933d3bdb510/thesis/20220423_BA_Larin.pdf) bachelor thesis.
 
 ## How it works
 
