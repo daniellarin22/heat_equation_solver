@@ -61,7 +61,7 @@ timer_fem = end_fem - start_fem
 run_id = "run_1d_test"
 
 # Number of iterations to train the model
-epochs = 1000
+epochs = 75000
 
 # Define hyper parameter to search from during tuning
 hyper_parameter_lists=[
