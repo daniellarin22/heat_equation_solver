@@ -30,8 +30,8 @@ class FEMSolver:
         self.initial = None
         self.dirichlet = None
         self.neumann = None
-        self.robin_r = None
-        self.robin_s = None
+        self.robin_rho = None
+        self.robin_g = None
         self.solution = None
 
         self.boundaries_assignment_dict = None
@@ -48,18 +48,18 @@ class FEMSolver:
 
         :return:    None
         """
-        self.f, self.initial, self.dirichlet, self.neumann, self.robin_r, self.robin_s, self.solution = \
+        self.f, self.initial, self.dirichlet, self.neumann, self.robin_rho, self.robin_g, self.solution = \
             EXPRESSIONS_TYPE_DICT[self.domain_type][self.test_problem_str]() 
 
         # Assign the different parts of the boundary to the different boundary types
         self.boundaries_assignment_dict = {
             DIRICHLET: list(self.dirichlet.keys()),
             NEUMANN: list(self.neumann.keys()),
-            ROBIN: list(self.robin_r.keys())
+            ROBIN: list(self.robin_rho.keys())
         }
         self.num_dirichlet_sectors = 0 if self.dirichlet is None else len(self.boundaries_assignment_dict[DIRICHLET])
         self.num_neumann_sectors = 0 if self.neumann is None else len(self.boundaries_assignment_dict[NEUMANN])
-        self.num_robin_sectors = 0 if self.robin_r is None else len(self.boundaries_assignment_dict[ROBIN])
+        self.num_robin_sectors = 0 if self.robin_rho is None else len(self.boundaries_assignment_dict[ROBIN])
 
     def set_boundary_types(self) -> None:
         """
@@ -178,11 +178,11 @@ class FEMSolver:
 
         if self.num_robin_sectors > 0:
             for key_tuple in self.boundaries_assignment_dict[ROBIN]:
-                left_hand_side += dt * theta * self.robin_r[key_tuple].expression * u * v * ds(key_tuple[0])
+                left_hand_side += dt * theta * self.robin_rho[key_tuple].expression * u * v * ds(key_tuple[0])
                 right_hand_side -= dt * (1 - theta) * \
-                                   self.robin_r[key_tuple].expression2 * u_n * v * ds(key_tuple[0])
-                right_hand_side += dt * theta * self.robin_s[key_tuple].expression * v * ds(key_tuple[0]) + \
-                     dt * (1 - theta) * self.robin_r[key_tuple].expression2 * v * ds(key_tuple[0])
+                                   self.robin_rho[key_tuple].expression2 * u_n * v * ds(key_tuple[0])
+                right_hand_side += dt * theta * self.robin_g[key_tuple].expression * v * ds(key_tuple[0]) + \
+                     dt * (1 - theta) * self.robin_rho[key_tuple].expression2 * v * ds(key_tuple[0])
 
         return [left_hand_side, right_hand_side], [df.Function(function_space), u_n]
 
@@ -247,12 +247,12 @@ class FEMSolver:
 
             if self.num_robin_sectors > 0:
                 for key_tuple in self.boundaries_assignment_dict[ROBIN]:
-                    if self.robin_r[key_tuple].expression_type == TIME_DEPENDENT:
-                        self.robin_r[key_tuple].expression.t = t
-                        self.robin_r[key_tuple].expression2.t = t_n
-                    if self.robin_s[key_tuple].expression_type == TIME_DEPENDENT:
-                        self.robin_s[key_tuple].expression.t = t
-                        self.robin_s[key_tuple].expression2.t = t_n
+                    if self.robin_rho[key_tuple].expression_type == TIME_DEPENDENT:
+                        self.robin_rho[key_tuple].expression.t = t
+                        self.robin_rho[key_tuple].expression2.t = t_n
+                    if self.robin_g[key_tuple].expression_type == TIME_DEPENDENT:
+                        self.robin_g[key_tuple].expression.t = t
+                        self.robin_g[key_tuple].expression2.t = t_n
 
             # Set Dirichlet boundary conditions and compute solution
             if self.num_dirichlet_sectors > 0:
