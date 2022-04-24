@@ -58,7 +58,7 @@ timer_fem = end_fem - start_fem
 run_id = "run_2d_test"
 
 # Number of iterations to train the model
-epochs = 1000
+epochs = 25000
 
 # Create hyper parameter product space for tuning
 hyper_parameter_product_space = build_hyper_parameter_space(
