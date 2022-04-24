@@ -74,7 +74,7 @@ hyper_parameter_lists=[
 ]
 
 # Use NUM_INITIAL = NUM_BOUNDARY = 1 for exact initial and boundary conditions
-# Setting 0 instead of 1 results in weird behaviour TODO
+# Setting 0 instead of 1 results in weird behaviour
 if hard_constraint:
     hyper_parameter_lists[4] = hyper_parameter_lists[5] = [1]
 
