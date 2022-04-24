@@ -125,7 +125,6 @@ def plot_error_measures(
     # Map error measures to Latex code for labels of the y-axis
     error_measure_in_latex = {np.inf: "{\infty}", 2: 2}
 
-
     plt.clf()
     if exact_solution is None:
         # Plot error between FEM and PINN solution for approximation of the PINN error
